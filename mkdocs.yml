@@ -1,0 +1,44 @@
+site_name: eng-metrics-suite
+site_description: Self-hosted engineering metrics pipeline -- docs
+site_url: https://jsooter.github.io/eng-metrics-docs/
+repo_url: https://github.com/jsooter/eng-metrics-suite
+repo_name: jsooter/eng-metrics-suite
+
+theme:
+  name: material
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: indigo
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: indigo
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+  features:
+    - navigation.sections
+    - navigation.top
+    - content.code.copy
+    - search.suggest
+
+nav:
+  - Home: index.md
+  - Getting Started: getting-started.md
+  - Discovering Repos: discovering-repos.md
+  - Running Workers: running-workers.md
+  - Generating Reports: generating-reports.md
+  - Scheduling Reports: scheduling.md
+  - Logs: logs.md
+  - Updating: updating.md
+
+markdown_extensions:
+  - admonition
+  - pymdownx.superfences
+  - pymdownx.tabbed:
+      alternate_style: true
+  - toc:
+      permalink: true

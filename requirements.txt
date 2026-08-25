@@ -1,0 +1,9 @@
+# Pinned to the current stable 1.x/9.x lines on purpose: Material for
+# MkDocs' own build output as of 2026 warns that MkDocs 2.0 will be a
+# backward-incompatible rewrite (plugins, theme overrides, and the
+# contribution model all change) with no migration path -- an unpinned
+# `pip install mkdocs-material` in CI would silently pick that up someday
+# and the site would likely stop building. Bump these deliberately, not
+# by accident.
+mkdocs>=1.6,<2
+mkdocs-material>=9,<10
