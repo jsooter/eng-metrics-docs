@@ -6,6 +6,7 @@ repo_name: jsooter/eng-metrics-suite
 
 theme:
   name: material
+  custom_dir: overrides  # TEMPORARY: adds a noindex meta tag, see overrides/main.html
   palette:
     - media: "(prefers-color-scheme: light)"
       scheme: default
