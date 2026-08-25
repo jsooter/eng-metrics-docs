@@ -8,11 +8,12 @@
 docker compose run --rm --entrypoint python3 git-processor discover_repos.py <org-or-group> --provider github
 ```
 
-`--provider` is `github` (default), `gitlab`, `bitbucket_cloud`, or
-`bitbucket_server`. `<org-or-group>` is an org/group/workspace, not a
-personal account — this discovers everything the org owns, not one
-user's repos. Queues each repo found — safe to re-run later to pick up
-new ones.
+`--provider` is `github` (default), `gitlab`, `bitbucket_cloud`,
+`bitbucket_server`, or `azure_devops` (Azure DevOps Services/cloud only —
+Azure DevOps Server/TFS isn't supported). `<org-or-group>` is an
+org/group/workspace, not a personal account — this discovers everything
+the org owns, not one user's repos. Queues each repo found — safe to
+re-run later to pick up new ones.
 
 ## Filtering what gets queued
 
@@ -39,6 +40,10 @@ docker compose run --rm --entrypoint python3 git-processor discover_repos.py <or
     concept (`exclude_archived` never matches there) and checks
     `updated_on` instead of push date for inactivity. Bitbucket Server's
     repo-list endpoint exposes neither signal, so only `exclude_patterns`
-    does anything there.
+    does anything there. Azure DevOps is similar to Bitbucket Server: its
+    repo-list endpoint has no push date at all (`exclude_inactive_days` is
+    a no-op), and its closest "archived" signal (`isDisabled`) means
+    something slightly different — hidden org-wide, not just inactive —
+    so treat `exclude_archived` there as an approximation.
 
 Next: [Running Workers](running-workers.md) to actually import what you just queued.

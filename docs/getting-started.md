@@ -6,7 +6,7 @@ then:
 ```
 cp .env.example .env
 # edit .env: set a POSTGRES_PASSWORD, and the token(s) for whichever
-# provider(s) you're importing from (GitHub/GitLab/Bitbucket)
+# provider(s) you're importing from (GitHub/GitLab/Bitbucket/Azure DevOps)
 
 sudo mkdir -p /var/lib/eng-metrics-suite
 sudo chown "$(id -u):$(id -g)" /var/lib/eng-metrics-suite
