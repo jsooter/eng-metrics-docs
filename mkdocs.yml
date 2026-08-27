@@ -32,6 +32,7 @@ nav:
   - Discovering Repos: discovering-repos.md
   - Running Workers: running-workers.md
   - Generating Reports: generating-reports.md
+  - Author Identity Consistency: author-identity.md
   - Scheduling Reports: scheduling.md
   - Logs: logs.md
   - Telemetry: telemetry.md

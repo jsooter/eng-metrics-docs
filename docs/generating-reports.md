@@ -41,4 +41,8 @@ carol@example.com,Product
 Anyone not listed shows up under "Unmapped" in the report rather than
 being silently dropped.
 
+If the same person shows up as multiple rows in the author table, or
+lands in "Unmapped" despite being in your team-map CSV, see
+[Author Identity Consistency](author-identity.md).
+
 Next: [Scheduling Reports](scheduling.md) to get this running automatically.
