@@ -34,6 +34,7 @@ nav:
   - Generating Reports: generating-reports.md
   - Scheduling Reports: scheduling.md
   - Logs: logs.md
+  - Telemetry: telemetry.md
   - Updating: updating.md
 
 markdown_extensions:
