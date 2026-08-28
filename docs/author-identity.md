@@ -88,15 +88,11 @@ docker compose run --rm -v /path/to/local/clone:/repo --entrypoint python3 \
 normal queue-worker mode clones and discards a scratch copy per repo, it
 doesn't keep one around for this.)
 
-!!! warning "Bind-mount ownership error"
-    If that fails with `fatal: detected dubious ownership in repository
-    at '/repo'`, it's git's own safety check tripping on the UID
-    mismatch between your host and the container. Add a one-time
-    exception before running the import:
-    ```
-    docker compose run --rm -v /path/to/local/clone:/repo --entrypoint sh \
-      git-processor -c "git config --global --add safe.directory /repo && python3 git_processor.py /repo --force-full-reimport"
-    ```
+No extra setup needed for the bind mount itself — earlier versions of
+this image required a manual `git config --add safe.directory` step to
+work around a host/container UID-ownership check; that's now baked into
+the image itself as long as you bind-mount to `/repo` (the path shown
+above), so it works out of the box.
 
 Tags don't need this step — `git ls-tags` output is fully reconciled
 against the database on *every* normal run (not just full reimports),
