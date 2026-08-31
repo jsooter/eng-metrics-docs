@@ -1,8 +1,8 @@
 site_name: eng-metrics-suite
 site_description: Self-hosted engineering metrics pipeline -- docs
-site_url: https://jsooter.github.io/eng-metrics-docs/
-repo_url: https://github.com/jsooter/eng-metrics-suite
-repo_name: jsooter/eng-metrics-suite
+site_url: https://gitultrahq.github.io/eng-metrics-docs/
+repo_url: https://github.com/GitUltraHQ/eng-metrics-suite
+repo_name: GitUltraHQ/eng-metrics-suite
 
 theme:
   name: material

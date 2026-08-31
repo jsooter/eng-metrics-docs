@@ -1,6 +1,6 @@
 # Getting Started
 
-Clone [eng-metrics-suite](https://github.com/jsooter/eng-metrics-suite),
+Clone [eng-metrics-suite](https://github.com/GitUltraHQ/eng-metrics-suite),
 then:
 
 ```

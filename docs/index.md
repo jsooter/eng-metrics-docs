@@ -5,11 +5,11 @@ from your GitHub, GitLab, Bitbucket, or Azure DevOps org into Postgres,
 and generate a PDF report (team/author activity, PR review health, cycle
 time, repo trends) from it.
 
-The [eng-metrics-suite](https://github.com/jsooter/eng-metrics-suite) repo
+The [eng-metrics-suite](https://github.com/GitUltraHQ/eng-metrics-suite) repo
 is just the `docker-compose.yml` needed to run it — the application
 images (`git-processor`, `pr-processor`, `eng-reports`) are published
-pre-built at [ghcr.io/jsooter](https://github.com/jsooter?tab=packages).
-Free to use; see [LICENSE](https://github.com/jsooter/eng-metrics-suite/blob/master/LICENSE).
+pre-built at [ghcr.io/gitultrahq](https://github.com/GitUltraHQ?tab=packages).
+Free to use; see [LICENSE](https://github.com/GitUltraHQ/eng-metrics-suite/blob/master/LICENSE).
 
 ## Requirements
 
