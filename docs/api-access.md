@@ -8,9 +8,11 @@ already use) can pull these metrics directly and on your own schedule,
 instead of regenerating and re-reading a PDF.
 
 Like the rest of this pipeline, it's **self-hosted**: it runs in your
-own infrastructure, against your own database, authenticated with a key
-you generate and control yourself. No data leaves your instance to make
-this work, and there's nothing to sign up for beyond the plan itself.
+own infrastructure, against your own database. Two credentials gate it
+-- a license key we issue you, and an API key you generate and control
+yourself (see "Auth" below for the difference). No data leaves your
+instance to make this work, and there's nothing to sign up for beyond
+the plan itself.
 
 ## Endpoints
 
@@ -24,8 +26,13 @@ range, plus optional scoping (see below).
 | Repo trends | Weekly commit/PR volume and churn ratio, per repo. |
 | Cycle time | The pickup/review/total percentile breakdown as its own endpoint, for dashboards that only need that slice. |
 | Deployment frequency | Weekly deployment counts per repo (every git tag counts by default; scope down to a real deploy-tagging convention with a tag-pattern filter). |
-| Lead time for changes | p50/p90/avg hours from a commit to its nearest later tag -- one of the four DORA metrics. |
+| Lead time for changes | p50/p90/avg hours from a commit to its nearest later tag. |
+| Change failure rate | Percentage of deployments (tags) linked to a Jira incident via that incident's Fix Version field, exact-matched to the tag name. Requires the optional [issue-processor](https://github.com/GitUltraHQ/issue-processor) Jira integration -- returns 0/`null` with `jira_configured_repo_count: 0` if it isn't set up, not a misleading 0%. |
+| Mean time to restore (MTTR) | p50/p90/avg hours from a linked incident's creation to its resolution. Same issue-processor dependency as change failure rate above; still-open incidents are excluded from the average but reported separately as `open_excluded`. |
 | AI usage | Per-author and org-wide weekly trend of commits with an AI-tool `Co-authored-by:` trailer (the same convention GitHub itself reads to show a tool's avatar on a commit) -- a lower bound on AI-assisted work, not a precise measurement. |
+
+Deployment frequency, lead time, change failure rate, and MTTR are the
+four canonical DORA metrics -- all four are available here.
 
 ## Scoping
 
@@ -73,13 +80,26 @@ curl "https://your-instance/v1/author-activity?start=2026-01-01&end=2026-04-01&t
 
 ## Auth
 
-Every request needs `Authorization: Bearer <key>`. The key isn't issued
-or stored by us -- you generate it yourself and set it in your own
-deployment config, the same way you already set your own database
-password. Once you have plan access, there's no separate account/key
-request step.
+Two separate credentials are involved, easy to conflate since both are
+just an env var and a header -- don't mix them up:
 
-### Generating a key
+- **License key** (`GITULTRA_LICENSE_KEY`) -- gates the deployment
+  itself. **We issue this to you** after you get plan access (see
+  "Getting access" below); it's not something you generate. The service
+  checks it once at startup and refuses to boot without a valid one --
+  see [eng-api](https://github.com/GitUltraHQ/eng-api)'s README for
+  details.
+- **API key** (`API_KEY`/`ENG_API_KEY`, sent as `Authorization: Bearer
+  <key>`) -- authenticates *your own dashboards'* requests to your
+  already-running instance. **You generate this yourself** (see below);
+  we never see or store it.
+
+Every request needs `Authorization: Bearer <key>` using the API key
+(not the license key). Once you have plan access, there's no separate
+account/key request step for the API key -- only the license key comes
+from us.
+
+### Generating an API key
 
 Any sufficiently random string works -- a UUID, a password manager's
 generator, whatever you already reach for. If you don't have a
@@ -107,4 +127,7 @@ leaked.
 
 Available on **Team** and **Enterprise** plans -- see
 [gitultra.com](https://gitultra.com) for plan details, or apply for
-beta access there if you're interested.
+beta access there if you're interested. Once you have access, we issue
+you a **license key** (`GITULTRA_LICENSE_KEY`, valid 90 days, renewed on
+request) -- set that alongside the API key you generate yourself (see
+"Auth" above) and you're running.
