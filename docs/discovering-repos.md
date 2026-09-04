@@ -46,4 +46,6 @@ docker compose run --rm --entrypoint python3 git-processor discover_repos.py <or
     something slightly different — hidden org-wide, not just inactive —
     so treat `exclude_archived` there as an approximation.
 
-Next: [Running Workers](running-workers.md) to actually import what you just queued.
+Next: [Jira Integration](jira-integration.md) if you want change failure
+rate/MTTR or an investment allocation report too, or straight to
+[Running Workers](running-workers.md) to actually import what you just queued.

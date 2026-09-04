@@ -39,8 +39,10 @@ Reports](generating-reports.md) instead.
 
 ## What `docker compose up` actually starts
 
-Postgres, plus the `git-processor` and `pr-processor` workers. The
-workers exit as soon as they find nothing queued to do — that's expected,
-not a crash; `restart: unless-stopped` just means they check again
-periodically rather than sitting in a busy loop. Nothing happens until
-you queue some repos — continue to [Discovering Repos](discovering-repos.md).
+Postgres, plus the `git-processor` and `pr-processor` workers (and
+`issue-processor`, if your compose bundle includes it — see
+[Jira Integration](jira-integration.md)). The workers exit as soon as
+they find nothing queued to do — that's expected, not a crash;
+`restart: unless-stopped` just means they check again periodically
+rather than sitting in a busy loop. Nothing happens until you queue
+some repos — continue to [Discovering Repos](discovering-repos.md).

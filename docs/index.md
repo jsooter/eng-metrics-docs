@@ -3,12 +3,16 @@
 A self-hosted engineering metrics pipeline: import commit and PR/MR stats
 from your GitHub, GitLab, Bitbucket, or Azure DevOps org into Postgres,
 and generate a PDF report (team/author activity, PR review health, cycle
-time, repo trends) from it.
+time, repo trends) from it. Optionally add a Jira integration for two
+more capabilities: change failure rate/MTTR (the other two DORA
+metrics) and an investment allocation report — see
+[Jira Integration](jira-integration.md).
 
 The [eng-metrics-suite](https://github.com/GitUltraHQ/eng-metrics-suite) repo
 is just the `docker-compose.yml` needed to run it — the application
-images (`git-processor`, `pr-processor`, `eng-reports`) are published
-pre-built at [ghcr.io/gitultrahq](https://github.com/GitUltraHQ?tab=packages).
+images (`git-processor`, `pr-processor`, `eng-reports`, and optionally
+`issue-processor`) are published pre-built at
+[ghcr.io/gitultrahq](https://github.com/GitUltraHQ?tab=packages).
 Free to use; see [LICENSE](https://github.com/GitUltraHQ/eng-metrics-suite/blob/master/LICENSE).
 
 ## Requirements
@@ -20,8 +24,11 @@ Free to use; see [LICENSE](https://github.com/GitUltraHQ/eng-metrics-suite/blob/
 - **`git-processor`** — clones queued repos and imports commit stats.
 - **`pr-processor`** — imports PR/MR stats from the same repos' vendor APIs.
 - **`eng-reports`** — reads both, renders a PDF report on demand.
-- **Postgres** — shared database all three read/write.
+- **`issue-processor`** (optional) — imports Jira data for change
+  failure rate/MTTR and/or investment allocation. Idles cleanly if
+  unconfigured — see [Jira Integration](jira-integration.md).
+- **Postgres** — shared database all of the above read/write.
 
-All three application services log structured JSON to stdout and are
+All application services log structured JSON to stdout and are
 controlled by the same `docker compose` commands — see
 [Getting Started](getting-started.md) to begin.

@@ -13,7 +13,10 @@ docker compose run --rm --user "$(id -u):$(id -g)" eng-reports report.py --outpu
 ```
 
 The PDF lands in `./reports/report.pdf` on the host (that directory is
-bind-mounted into the container).
+bind-mounted into the container). If you've configured the optional
+[Jira Integration](jira-integration.md), this PDF also gains a change
+failure rate/MTTR section -- otherwise that section reports "not
+configured" rather than a misleading 0%.
 
 ## Useful flags
 
@@ -49,11 +52,9 @@ lands in "Unmapped" despite being in your team-map CSV, see
 
 A second, independent script in the same `eng-reports` image: shows
 how work breaks down by category (feature/bug/tech-debt/etc.), sourced
-from Jira ticket data via the optional
-[issue-processor](https://github.com/GitUltraHQ/issue-processor)
+from Jira ticket data via the optional [Jira Integration](jira-integration.md)'s
 allocation-tracking flow (separate from the change-failure-rate/MTTR
-Jira integration -- see that repo's README to configure either or
-both).
+one above -- configure either or both).
 
 ```
 docker compose run --rm eng-reports allocation_report.py --output /out/allocation.pdf

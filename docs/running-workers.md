@@ -2,10 +2,12 @@
 
 `git-processor` and `pr-processor` (already running from `docker compose
 up`) pick up queued repos automatically and import commit/PR stats into
-Postgres. Watch progress with:
+Postgres. `issue-processor` does the same for Jira data if you've
+configured it (see [Jira Integration](jira-integration.md)). Watch
+progress with:
 
 ```
-docker compose logs -f git-processor pr-processor
+docker compose logs -f git-processor pr-processor issue-processor
 ```
 
 See [Logs](logs.md) for what each JSON line means.
