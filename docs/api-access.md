@@ -30,6 +30,10 @@ range, plus optional scoping (see below).
 | Change failure rate | Percentage of deployments (tags) linked to a Jira incident via that incident's Fix Version field, exact-matched to the tag name. Requires the optional [issue-processor](https://github.com/GitUltraHQ/issue-processor) Jira integration -- returns 0/`null` with `jira_configured_repo_count: 0` if it isn't set up, not a misleading 0%. |
 | Mean time to restore (MTTR) | p50/p90/avg hours from a linked incident's creation to its resolution. Same issue-processor dependency as change failure rate above; still-open incidents are excluded from the average but reported separately as `open_excluded`. |
 | AI usage | Per-author and org-wide weekly trend of commits with an AI-tool `Co-authored-by:` trailer (the same convention GitHub itself reads to show a tool's avatar on a commit) -- a lower bound on AI-assisted work, not a precise measurement. |
+| Investment allocation | Ticket/story-point distribution, allocation trend, cycle time, and logged time, per Jira-ticket category. Requires issue-processor's separate allocation-tracking flow (independent of the CFR/MTTR one above). **Not scoped by `repo`/`org`/`team` at all** -- see "Scoping" below. |
+| Author distribution trend | Weekly p50/p90 (never a per-author number) of commit count, churn ratio, and active days -- the anonymized, ranking-safe alternative to a per-author leaderboard. |
+| Reviewer distribution trend | Weekly p50/p90 of reviews-per-reviewer, same anonymization reasoning as above. |
+| Commits-after-open distribution trend | Weekly p50/p90 of avg commits pushed after a PR was opened, per PR. |
 
 Deployment frequency, lead time, change failure rate, and MTTR are the
 four canonical DORA metrics -- all four are available here.
@@ -49,6 +53,11 @@ Every endpoint accepts:
   stay repo-scoped.
 
 `repo`/`org` and `team` are mutually exclusive.
+
+**Investment allocation is the one exception** -- it accepts none of
+`repo`/`org`/`team`. Jira tickets have no repo relationship (allocation
+tracking is purely Jira-side data), so there's nothing to scope by; it
+always returns one combined view across every tracked Jira project.
 
 ## Example
 

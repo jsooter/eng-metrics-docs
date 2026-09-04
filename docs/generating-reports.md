@@ -45,4 +45,26 @@ If the same person shows up as multiple rows in the author table, or
 lands in "Unmapped" despite being in your team-map CSV, see
 [Author Identity Consistency](author-identity.md).
 
+## Investment allocation report
+
+A second, independent script in the same `eng-reports` image: shows
+how work breaks down by category (feature/bug/tech-debt/etc.), sourced
+from Jira ticket data via the optional
+[issue-processor](https://github.com/GitUltraHQ/issue-processor)
+allocation-tracking flow (separate from the change-failure-rate/MTTR
+Jira integration -- see that repo's README to configure either or
+both).
+
+```
+docker compose run --rm eng-reports allocation_report.py --output /out/allocation.pdf
+```
+
+Same `--period`/`--start`/`--end`/`--output` flags as `report.py`
+above, but **no `--repo`/`--org`/`--team-map` scoping** -- it always
+covers every tracked Jira project as one combined report (Jira tickets
+have no repo relationship the way commits/PRs do, so there's nothing
+to scope by). If the allocation flow isn't configured at all, the PDF
+renders a single "not configured" page rather than misleading empty
+tables.
+
 Next: [Scheduling Reports](scheduling.md) to get this running automatically.
