@@ -34,6 +34,7 @@ nav:
   - Running Workers: running-workers.md
   - Generating Reports: generating-reports.md
   - API Access (Team / Enterprise): api-access.md
+  - AI Agent Access (Team / Enterprise): mcp-access.md
   - Author Identity Consistency: author-identity.md
   - Scheduling Reports: scheduling.md
   - Logs: logs.md

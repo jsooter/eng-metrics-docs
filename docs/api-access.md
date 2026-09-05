@@ -140,3 +140,7 @@ beta access there if you're interested. Once you have access, we issue
 you a **license key** (`GITULTRA_LICENSE_KEY`, valid 90 days, renewed on
 request) -- set that alongside the API key you generate yourself (see
 "Auth" above) and you're running.
+
+Want to query these same metrics conversationally, from Claude Desktop
+or Claude Code, instead of calling the API yourself? See
+[AI Agent Access](mcp-access.md).
